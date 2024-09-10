@@ -15,6 +15,7 @@
             margin: 0;
             background: linear-gradient(to right, #f8f9fa, #e9ecef);
             color: #333;
+            overflow: hidden; /* Oculta la barra de desplazamiento */
         }
         .container {
             text-align: center;
@@ -33,6 +34,10 @@
             height: 100px;
             margin-bottom: 20px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .info {
+            font-size: 16px;
+            margin-bottom: 20px;
         }
         .message {
             display: none;
@@ -53,17 +58,38 @@
         .message a:hover {
             text-decoration: underline;
         }
+        /* Estilo para la hora */
+        #currentTime {
+            font-size: 24px;
+            font-weight: bold;
+            color: #007bff;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <iframe src="https://server6.hostradios.com/cp/widgets/player/single/?p=8632#"></iframe>
+        <div class="info">
+            <div id="currentTime"></div>
+        </div>
         <div class="message" id="followMessage">
             <p>¡Gracias por escuchar! Si estás buscando productos de decoración para fiestas y eventos, te invitamos a seguir a <a href="http://www.guirnaldasvip.com" target="_blank">Guirnaldas VIP Argentina</a>.</p>
         </div>
     </div>
 
     <script>
+        // Función para obtener la hora actual
+        function updateTime() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            document.getElementById('currentTime').textContent = `Hora actual: ${hours}:${minutes}:${seconds}`;
+        }
+
+        // Actualizar la hora cada segundo
+        setInterval(updateTime, 1000);
+
         // Mostrar el mensaje después de 1 minuto
         setTimeout(function() {
             document.getElementById('followMessage').style.display = 'block';
